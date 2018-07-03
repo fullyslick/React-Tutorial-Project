@@ -35,8 +35,10 @@ const contacts = [
 class App extends Component {
   render() {
     // Render the ListContacts to the Dom
+    // Pass the contacts array above to the ListContacts component,
+    // using some property like "contacts". Check ListContacts.js
     return (
-      <ListContacts />
+      <ListContacts contacts={contacts} />
     )
   }
 }
