@@ -48,8 +48,8 @@ class App extends Component {
   // The argument of this function is the "contact" object passed from ListContacts.js
   // https://youtu.be/d3UNPA863f4
   removeContact = (contact) => {
-    // this.setState to change state.contacts
-    // The argument of this method can be a new state object liek this: { contacts: [...somedata]} OR
+    // Whenever setState() is called, the component also calls render() with the new state
+    // The argument of this method can be a new state object like this: { contacts: [...somedata]} OR
     // A function that (ES6 in this case) that takes as argument the "oldState" and
     // returns a new object with the new state filtered without "contact" passed.
     // NOTE the brackets after => ({ the new state object })
