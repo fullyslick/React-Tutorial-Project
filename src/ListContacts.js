@@ -1,5 +1,15 @@
 // Import react component class tobe able to use it
-import React, {Component} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+
+// PropTypes is external npm package that allow us to
+// validate data passed to this component are of type that the component is expecting.
+// if the props.contacts is "string" instead of "array" the component will not work.
+// 1. Install PropTypes: npm install --save prop-types
+// 2. Restart server if it is running.
+// 3. Import PropTypes - see above:: import PropTypes from 'prop-types';
+// 4. Replace import React, {Component} from 'react'; WITH import React, from 'react';
+// 5. Define what the props passed to the component type should be. Check at the bottom.
 
 // If the component has only render method,
 // we can use simple function. a.k.a (Stateless Function)
@@ -35,7 +45,15 @@ function ListContacts(props){
         )}
       </ol>
     )
+}
 
+// Here you define what the props passed to the component type should be,
+// and wheter the property is required in order to work the ListContacts component.
+// If these props are not passed a message will be logged in console.
+// Now you know that the app brakes because of incorrect props passed to the component.
+ListContacts.propTypes = {
+  contacts: PropTypes.array.isRequired,
+  onDeleteContact: PropTypes.func.isRequired
 }
 
 // Make the component accessable by other scripts in this case App.js
