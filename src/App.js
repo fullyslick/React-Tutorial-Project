@@ -13,8 +13,9 @@ class App extends Component {
   state = {
     // The data that will be using,
     // later it will be replaced by fetch to server localhost:5001
-    // In order to enable React to update this data below,
-    // it should be placed inside "state" variable.
+    // In order to enable React to update this data below, it should be placed inside "state" variable.
+    // By having a component manage its own state, any time there are changes made to that state,
+    // React will know and automatically make the necessary updates to the page.
     // Having state outside the constructor() means it is a class field, which is a proposal for a new change to the language.
     // It currently isn't supported by JavaScript, but thanks to Babel's fantastic powers of transpiling, we can use it!
     // Check offical docs for "state": https://reactjs.org/docs/react-without-es6.html#setting-the-initial-state
