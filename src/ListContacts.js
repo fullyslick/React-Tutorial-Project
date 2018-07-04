@@ -26,7 +26,8 @@ function ListContacts(props){
                 <p>{contact.name}</p>
                 <p>{contact.email}</p>
               </div>
-              <button className="contact-remove">
+              {/* Invoke removeContact function from App component passing the "conatct" that is clicked*/}
+              <button onClick={() => (props.onDeleteContact(contact))} className="contact-remove">
                 Remove
               </button>
             </li>

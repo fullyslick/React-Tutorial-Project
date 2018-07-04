@@ -42,12 +42,33 @@ class App extends Component {
     ]
   }
 
+  // Removes contact from state.contact when "x" btn us clicked in ListContacts
+  // This method will be passed as new property "onDeleteContact" to <ListContacts /> below.
+  // Then then ListContacts.js will be able to access it and invoke that function using onClick={ (contact) => props.onDeleteContact}
+  // The argument of this function is the "contact" object passed from ListContacts.js
+  // https://youtu.be/d3UNPA863f4
+  removeContact = (contact) => {
+    // this.setState to change state.contacts
+    // The argument of this method can be a new state object liek this: { contacts: [...somedata]} OR
+    // A function that (ES6 in this case) that takes as argument the "oldState" and
+    // returns a new object with the new state filtered without "contact" passed.
+    // NOTE the brackets after => ({ the new state object })
+    this.setState((oldState) => ({
+      // Here we update with a new state. It will also have "contacts" object
+      // But the new "contacts" object will be an array that does not include the passed in removeContact "contact" object
+      // So it will include the old State without the passed "contact" object.
+      // We use "id" property to filter the contact that should be deleted.
+      contacts: oldState.contacts.filter( (singleOldContact) => singleOldContact.id !== contact.id)
+    }))
+  }
+
   render() {
     // Render the ListContacts to the Dom
     // Pass the contacts array above to the ListContacts component,
     // using some property like "contacts". Check ListContacts.js
+    // Pass the removeContact function to ListContacts.js component so it can use it.
     return (
-      <ListContacts contacts={this.state.contacts} />
+      <ListContacts onDeleteContact={this.removeContact} contacts={this.state.contacts} />
     )
   }
 }
