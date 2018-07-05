@@ -24,6 +24,24 @@ class ListContacts extends Component{
       onDeleteContact: PropTypes.func.isRequired
     }
 
+    // 1. The user enters text into the input field.
+    // 2. An event listener invokes the updateQuery() function on every onChange event.
+    // 3. updateQuery() then calls setState(), merging in the new state to update the component's internal state.
+    // 4. Because its state has changed, the ListContacts component re-renders.
+    // https://youtu.be/1Tkb9SGkOgI
+    state = {
+      query : ''
+    }
+
+    // Updates the "state".
+    // (queryFromInput) is passed from JSX template below, this is the value from the input field.
+    // The method sets new "query" value in the "state".
+    // Then the input is re-rendered with the new "state" as input value.
+    // .trim() - removes white spaces.
+    updateQuery = (queryFromInput) => {
+      this.setState({query: queryFromInput.trim()})
+    }
+
     render(){
     // Check the log to see the array that is passed
     console.log(this.props.contacts);
@@ -33,7 +51,20 @@ class ListContacts extends Component{
     // https://youtu.be/qkKNrTUvGJU
     // When using statless func instead of class, just return the JSX template
     return (
-      <ol className="contact-list">
+      <div className="list-contacts">
+       <div className="list-contacts-top">
+        <input
+          className="search-contacts"
+          type="text"
+          placeholder="Search"
+          // Note that the value attribute is set on the <input> element.
+          // Our displayed value will always be the value in the component's state, making our state the "single source of truth."
+          value={this.state.query}
+          // onChange invokes function that invokes updateQuery with the value of the input as argument
+          onChange={(event) => this.updateQuery(event.target.value)}
+        />
+       </div>
+       <ol className="contact-list">
         {this.props.contacts.map(
           (contact) => (
           // For details: https://youtu.be/mnIuUk9cexA
@@ -50,7 +81,8 @@ class ListContacts extends Component{
             </li>
           )
         )}
-      </ol>
+       </ol>
+      </div>
     )
   }
 }
