@@ -1,6 +1,12 @@
-// Import react component class tobe able to use it
+// Import react component class to be able to use it
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+// These are packages installed with npm that helps filtering the results.
+// 'escape-string-regexp' - escape/ignores strings that contain some charactars like $ ""
+import escapeRegExp from 'escape-string-regexp';
+// "sort-by" - sorts the result alphabeticlly
+import sortBy from 'sort-by';
+
 
 // PropTypes is external npm package that allow us to
 // validate data passed to this component are of type that the component is expecting.
@@ -43,8 +49,25 @@ class ListContacts extends Component{
     }
 
     render(){
-    // Check the log to see the array that is passed
-    console.log(this.props.contacts);
+    // This var holds only those props that match the "query"
+    let showingContacts;
+
+    // If the user has typed inside input field, then this.state,query becomes true.
+    // So assign to showingContacts only those props that match the query.
+    // Else - the input is empty and display all the results
+    // https://youtu.be/xIlkBGmRq0g
+    if (this.state.query) {
+      // Object the match specific text in a pattern
+      const match = new RegExp(escapeRegExp(this.state.query), 'i');
+      // Assign to showingContacts only those props that match the query
+      showingContacts = this.props.contacts.filter((contact) => match.test(contact.name));
+    } else {
+      showingContacts = this.props.contacts;
+    }
+
+    // Reorganise showingContacts array,
+    // by putting objects in alphabetical order of the "name" property
+    showingContacts.sort(sortBy('name'));
 
     // map over the data passed from App.js: this.props.contacts
     // for every contact create a <li>
@@ -65,7 +88,7 @@ class ListContacts extends Component{
         />
        </div>
        <ol className="contact-list">
-        {this.props.contacts.map(
+        {showingContacts.map(
           (contact) => (
           // For details: https://youtu.be/mnIuUk9cexA
             <li key={contact.id} className="contact-list-item">
