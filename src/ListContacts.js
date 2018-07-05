@@ -48,6 +48,12 @@ class ListContacts extends Component{
       this.setState({query: queryFromInput.trim()})
     }
 
+    // Resets the state { query:  } to an empty string.
+    // https://youtu.be/ykZMChM_Uu8
+    clearQuery = () => {
+      this.setState({ query: ''})
+    }
+
     render(){
     // This var holds only those props that match the "query"
     let showingContacts;
@@ -87,6 +93,18 @@ class ListContacts extends Component{
           onChange={(event) => this.updateQuery(event.target.value)}
         />
        </div>
+
+       {/* Display a message <div> only if the showingContacts.lenght is different from this.props.contats.length
+         Here ternary opeartors are used instead of "if"
+         https://youtu.be/ykZMChM_Uu8  */}
+       {showingContacts.length !== this.props.contacts.length && (
+         <div className="showing-contacts">
+           <span>Now showing {showingContacts.length} of {this.props.contacts.length} results total.</span>
+           {/* When Show all is clicked executed clearQuery method defined above */}
+           <button onClick={ () => (this.clearQuery())}>Show all</button>
+         </div>
+       )}
+
        <ol className="contact-list">
         {showingContacts.map(
           (contact) => (
