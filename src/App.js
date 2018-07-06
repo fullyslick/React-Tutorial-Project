@@ -13,6 +13,8 @@ import ListContacts from './ListContacts.js';
 import * as ContactsAPI from './utils/ContactsAPI.js';
 // import the CreateContact component in CreateContact.js
 import CreateContact from './CreateContact';
+// allow us to use Router component to change components displayed based on url
+import { Route } from 'react-router-dom';
 
 class App extends Component {
   state = {
@@ -27,10 +29,7 @@ class App extends Component {
     // It currently isn't supported by JavaScript, but thanks to Babel's fantastic powers of transpiling, we can use it!
     // Check offical docs for "state": https://reactjs.org/docs/react-without-es6.html#setting-the-initial-state
     // https://youtu.be/RyO7B5KLXVY
-    contacts : [],
-    // this object will hold string value, which will be used to change the displayed components.
-    // https://youtu.be/5ySqH5Uag2M
-    screen: 'list' // list, createPage change to create page to see that only CreateContact will be displayed.
+    contacts : []
   }
 
   // This method is executed automatically by React when, the component is displayed on the DOM.
@@ -75,20 +74,23 @@ class App extends Component {
     // Pass the removeContact function to ListContacts.js component so it can use it.
     return (
       <div className="app">
-         {/* If the screen is set to "list" display the ListContacts component.*/}
-      {this.state.screen === 'list' && (
-          <ListContacts
+      {/* path - the url which at whoch the component declared in "render" or "component" will be displayed
+      exact - Components wrapped in the Router component will only render when it matches (at least some initial part of) the URL.
+              If the 'exact' flag is set, the path will only match when it exactly matches the URL
+      render - the component that should be displayed, but returned from function.
+               Use render when there are properties to be passed to that component.
+      component - e component that should be displayed. Use this when THERE NO PROPS to be used.
+      https://youtu.be/KsuuFWh1VAg */}
+      <Route
+          exact path="/" render={ () => (
+            <ListContacts
             contacts={this.state.contacts}
             onDeleteContact={this.removeContact}
-            // Will change screen: to createPage, which will re-render whole compnent, and render only CreateContact component
-            // https://youtu.be/aOfohwGbL-A
-            onNavigate={ () => {this.setState({ screen: 'createPage'})}}
             />
-      )}
-         {/* If the screen is set to "createPage" display the CreateContact component.*/}
-      {this.state.screen === 'createPage' && (
-        <CreateContact />
-      )}
+          )}            
+        />
+      {/* component - e component that should be displayed. Use this when THERE NO PROPS to be used.   */}
+      <Route path="/create" component={CreateContact} />
     </div>
     )
   }
