@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 
 // This component inserts new contact.
 // https://youtu.be/5ySqH5Uag2M
 class CreateContact extends Component{
   render(){
     return (
-      <div>Create Contact Page !</div>
+      <Link to="/" className="close-create-contact">Back</Link>
     )
   }
 }
