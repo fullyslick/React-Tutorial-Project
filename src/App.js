@@ -11,6 +11,8 @@ import ListContacts from './ListContacts.js';
 // import all methods from ContactsAPI.js to be able to use them.
 // We use them to fetch data, check componentDidMount()
 import * as ContactsAPI from './utils/ContactsAPI.js';
+// import the CreateContact component in CreateContact.js
+import CreateContact from './CreateContact';
 
 class App extends Component {
   state = {
@@ -25,7 +27,10 @@ class App extends Component {
     // It currently isn't supported by JavaScript, but thanks to Babel's fantastic powers of transpiling, we can use it!
     // Check offical docs for "state": https://reactjs.org/docs/react-without-es6.html#setting-the-initial-state
     // https://youtu.be/RyO7B5KLXVY
-    contacts : []
+    contacts : [],
+    // this object will hold string value, which will be used to change the displayed components.
+    // https://youtu.be/5ySqH5Uag2M
+    screen: 'list' // list, createPage change to create page to see that only CreateContact will be displayed.
   }
 
   // This method is executed automatically by React when, the component is displayed on the DOM.
@@ -69,7 +74,16 @@ class App extends Component {
     // using some property like "contacts". Check ListContacts.js
     // Pass the removeContact function to ListContacts.js component so it can use it.
     return (
-      <ListContacts onDeleteContact={this.removeContact} contacts={this.state.contacts} />
+      <div className="app">
+         {/* If the screen is set to "list" display the ListContacts component.*/}
+      {this.state.screen === 'list' && (
+          <ListContacts onDeleteContact={this.removeContact} contacts={this.state.contacts} />
+      )}
+         {/* If the screen is set to "createPage" display the CreateContact component.*/}
+      {this.state.screen === 'createPage' && (
+        <CreateContact />
+      )}
+    </div>
     )
   }
 }
