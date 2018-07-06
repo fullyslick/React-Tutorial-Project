@@ -81,6 +81,7 @@ class App extends Component {
             contacts={this.state.contacts}
             onDeleteContact={this.removeContact}
             // Will change screen: to createPage, which will re-render whole compnent, and render only CreateContact component
+            // https://youtu.be/aOfohwGbL-A
             onNavigate={ () => {this.setState({ screen: 'createPage'})}}
             />
       )}
