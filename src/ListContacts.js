@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import escapeRegExp from 'escape-string-regexp';
 // "sort-by" - sorts the result alphabeticlly
 import sortBy from 'sort-by';
+// The link component will allow to update browsers URL on click of link
+import { Link } from 'react-router-dom';
 
 
 // PropTypes is external npm package that allow us to
@@ -92,13 +94,13 @@ class ListContacts extends Component{
           // onChange invokes function that invokes updateQuery with the value of the input as argument
           onChange={(event) => this.updateQuery(event.target.value)}
         />
-        <a
-          href="#create"
+        <Link
+          // Link componet will render <a href="/create">Add Contact</a>
+          // use to="link-location" inbstead href="link-location"
+          // By passing a "to" property to the Link component, you tell your app which path to route to.
+          to="/create"
           className="add-contact"
-          // When user clicks it calls a method from the parent App.js component
-          // this method is passed as property to this component ListContacts
-          onClick={()=> {this.props.onNavigate()}}
-          >Add Contact</a>
+          >Add Contact</Link>
        </div>
 
        {/* Display a message <div> only if the showingContacts.lenght is different from this.props.contats.length
