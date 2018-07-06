@@ -19,6 +19,7 @@ export const remove = (contact) =>
   fetch(`${api}/contacts/${contact.id}`, { method: 'DELETE', headers })
     .then(res => res.json())
     .then(data => data.contact)
+    .then(resp => console.log('Deleted from server'))
 
 export const create = (body) =>
   fetch(`${api}/contacts`, {

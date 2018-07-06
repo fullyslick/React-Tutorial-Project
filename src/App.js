@@ -53,7 +53,14 @@ class App extends Component {
       // So it will include the old State without the passed "contact" object.
       // We use "id" property to filter the contact that should be deleted.
       contacts: oldState.contacts.filter( (singleOldContact) => singleOldContact.id !== contact.id)
-    }))
+    }));
+
+
+    // Removes "contact" from the server data base.
+    // It uses ContactsAPI remove() method.
+    // If you delete all "contacts", to populate them back, restart the server : localhost:5000 -> https://github.com/udacity/reactnd-contacts-server
+    // https://youtu.be/vHj2BqAW7jA
+    ContactsAPI.remove(contact);
   }
 
   render() {
