@@ -92,6 +92,13 @@ class ListContacts extends Component{
           // onChange invokes function that invokes updateQuery with the value of the input as argument
           onChange={(event) => this.updateQuery(event.target.value)}
         />
+        <a
+          href="#create"
+          className="add-contact"
+          // When user clicks it calls a method from the parent App.js component
+          // this method is passed as property to this component ListContacts
+          onClick={()=> {this.props.onNavigate()}}
+          >Add Contact</a>
        </div>
 
        {/* Display a message <div> only if the showingContacts.lenght is different from this.props.contats.length
@@ -116,7 +123,7 @@ class ListContacts extends Component{
                 <p>{contact.email}</p>
               </div>
               {/* Invoke removeContact function from App component passing the "conatct" that is clicked*/}
-              <button onClick={() => (this.props.onDeleteContact(contact))} className="contact-remove">
+              <button onClick={() => {this.props.onDeleteContact(contact)}} className="contact-remove">
                 Remove
               </button>
             </li>

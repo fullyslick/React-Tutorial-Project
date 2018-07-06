@@ -77,7 +77,12 @@ class App extends Component {
       <div className="app">
          {/* If the screen is set to "list" display the ListContacts component.*/}
       {this.state.screen === 'list' && (
-          <ListContacts onDeleteContact={this.removeContact} contacts={this.state.contacts} />
+          <ListContacts
+            contacts={this.state.contacts}
+            onDeleteContact={this.removeContact}
+            // Will change screen: to createPage, which will re-render whole compnent, and render only CreateContact component
+            onNavigate={ () => {this.setState({ screen: 'createPage'})}}
+            />
       )}
          {/* If the screen is set to "createPage" display the CreateContact component.*/}
       {this.state.screen === 'createPage' && (
