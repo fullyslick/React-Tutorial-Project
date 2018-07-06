@@ -102,9 +102,12 @@ class App extends Component {
           )}
         />
       {/* Pass onCreateContact method to CreateContact component */}
-      <Route path="/create" render={ () => (
+      <Route path="/create" render={ ({history}) => (
         <CreateContact
-           onCreateContact={this.createContact}
+           onCreateContact = {(valuesFormInput) => {
+            this.createContact(valuesFormInput)
+            history.push('/')
+          }}
         />
       )} />
     </div>
