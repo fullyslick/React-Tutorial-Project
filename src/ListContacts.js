@@ -101,6 +101,13 @@ class ListContacts extends Component{
           to="/create"
           className="add-contact"
           >Add Contact</Link>
+          {/* For more comples links you can use this:
+           <Link to={{
+            pathname: '/courses',
+            search: '?sort=name',
+            hash: '#the-hash',
+            state: { fromDashboard: true }
+           }}> */}
        </div>
 
        {/* Display a message <div> only if the showingContacts.lenght is different from this.props.contats.length
