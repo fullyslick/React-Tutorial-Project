@@ -5,15 +5,29 @@ import { Link } from 'react-router-dom';
 // and render it on the screen.
 // https://youtu.be/8JjYl5r3wLk?t=58
 import ImageInput from './ImageInput.js';
+// Allows to convert form input fields to object. Installed with: npm install --save form-serialize
+import serializeForm from 'form-serialize';
 
 // This component inserts new contact.
 // https://youtu.be/5ySqH5Uag2M
 class CreateContact extends Component{
+
+  // On submit of form data will be grabbed from inputs and converted to an object
+  // https://youtu.be/nf17fXAaRVs
+  handleSubmit = (e) => {
+    // Prevent default behaviour of form
+    e.preventDefault();
+    // Grab the input fields and convert them to object
+    const values = serializeForm(e.target, { hash:true });
+    // Log the values to see the serializer in action
+    console.log(values);
+  }
+
   render(){
     return (
       <div>
       <Link to="/" className="close-create-contact">Back</Link>
-      <form className="create-contact-form">
+      <form onSubmit={this.handleSubmit} className="create-contact-form">
         <ImageInput
           className="create-contact-avatar-input"
           name="avatrURL"
