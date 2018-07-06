@@ -21,6 +21,12 @@ class CreateContact extends Component{
     const values = serializeForm(e.target, { hash:true });
     // Log the values to see the serializer in action
     console.log(values);
+
+    // If the method onCreateContact exists in App component,
+    // send the input fields values to that method
+    if(this.props.onCreateContact){
+      this.props.onCreateContact(values);
+    }
   }
 
   render(){

@@ -67,6 +67,18 @@ class App extends Component {
     ContactsAPI.remove(contact);
   }
 
+  // The data passed from the input fields are stored in the server database thanks to ContactsAPI.create method
+  // https://youtu.be/hRTQp9pFr_c
+  createContact = (valuesFromInput) => {
+    ContactsAPI.create(valuesFromInput).then( insertedContact => {
+      // After the contact is inserted to data base, insert it in the "state", to be visible on the page
+      this.setState(oldState => ({
+        // Merges the existing contacts with the newly inserted contact.
+        contacts: oldState.contacts.concat(insertedContact)
+      }));
+    })
+  }
+
   render() {
     // Render the ListContacts to the Dom
     // Pass the contacts array above to the ListContacts component,
@@ -87,10 +99,14 @@ class App extends Component {
             contacts={this.state.contacts}
             onDeleteContact={this.removeContact}
             />
-          )}            
+          )}
         />
-      {/* component - e component that should be displayed. Use this when THERE NO PROPS to be used.   */}
-      <Route path="/create" component={CreateContact} />
+      {/* Pass onCreateContact method to CreateContact component */}
+      <Route path="/create" render={ () => (
+        <CreateContact
+           onCreateContact={this.createContact}
+        />
+      )} />
     </div>
     )
   }
